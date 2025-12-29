@@ -53,19 +53,32 @@
     </form>
 </td>
 
-                    <td class="border p-2">
-                        <a href="{{ route('staff.edit', $s->id) }}" class="text-blue-600">Edit</a>
+                    <td class="border p-2 space-x-2">
 
-                        <form action="{{ route('staff.destroy', $s->id) }}"
-                              method="POST" class="inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="text-red-600"
-                                onclick="return confirm('Delete staff?')">
-                                Delete
-                            </button>
-                        </form>
-                    </td>
+    <a href="{{ route('staff.edit', $s->id) }}"
+       class="text-blue-600">
+       Edit
+    </a>
+
+    <a href="{{ route('staff.id-card', $s->id) }}"
+       target="_blank"
+       class="text-green-600">
+       Print ID
+    </a>
+
+    <form action="{{ route('staff.destroy', $s->id) }}"
+          method="POST"
+          class="inline">
+        @csrf
+        @method('DELETE')
+        <button class="text-red-600"
+                onclick="return confirm('Delete staff?')">
+            Delete
+        </button>
+    </form>
+
+</td>
+
                 </tr>
                 @endforeach
             </tbody>

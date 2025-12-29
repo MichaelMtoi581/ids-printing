@@ -7,6 +7,8 @@ use App\Models\Department;
 use App\Models\Designation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 
 class StaffController extends Controller
@@ -107,5 +109,16 @@ class StaffController extends Controller
     return redirect()->route('staff.index')
         ->with('success', 'Staff archived successfully');
 }
+
+public function idCard(Staff $staff)
+{
+    $pdf = Pdf::loadView('staff.id-card', compact('staff'))
+        ->setPaper([0, 0, 242.65, 153.07]); // ID card size (mm → points)
+
+    return $pdf->stream(
+        'ID_' . $staff->file_no . '.pdf'
+    );
+}
+
 
 }
