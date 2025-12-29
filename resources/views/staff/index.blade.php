@@ -37,7 +37,22 @@
     @endif
 </td>
 
-                    <td class="border p-2">{{ ucfirst($s->status) }}</td>
+                    <td class="border p-2">
+    <form method="POST"
+          action="{{ route('staff.toggleStatus', $s->id) }}">
+        @csrf
+        @method('PATCH')
+
+        <button type="submit"
+            class="px-3 py-1 rounded text-black
+            {{ $s->status === 'active'
+                ? 'bg-green-500'
+                : 'bg-red-500' }}">
+            {{ ucfirst($s->status) }}
+        </button>
+    </form>
+</td>
+
                     <td class="border p-2">
                         <a href="{{ route('staff.edit', $s->id) }}" class="text-blue-600">Edit</a>
 

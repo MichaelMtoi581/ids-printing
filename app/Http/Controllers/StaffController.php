@@ -6,6 +6,8 @@ use App\Models\Staff;
 use App\Models\Department;
 use App\Models\Designation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class StaffController extends Controller
 {
@@ -56,18 +58,47 @@ class StaffController extends Controller
         return view('staff.edit', compact('staff', 'departments', 'designations'));
     }
 
-    public function update(Request $request, Staff $staff)
-    {
-        $request->validate([
-            'file_no' => 'required|unique:staff,file_no,' . $staff->id,
-            'email' => 'required|email|unique:staff,email,' . $staff->id,
-        ]);
+   public function update(Request $request, Staff $staff)
+{
+    $data = $request->validate([
+        'full_name' => 'required|string|max:255',
+        'department_id' => 'required|exists:departments,id',
+        'designation_id' => 'required|exists:designations,id',
+        'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
 
-        $staff->update($request->all());
+    // Handle photo upload
+    if ($request->hasFile('photo')) {
 
-        return redirect()->route('staff.index')
-            ->with('success', 'Staff updated successfully');
+        // Delete old photo
+        if ($staff->photo_path && Storage::disk('public')->exists($staff->photo_path)) {
+            Storage::disk('public')->delete($staff->photo_path);
+        }
+
+        // Store new photo
+        $data['photo_path'] = $request->file('photo')
+            ->store('staff_photos', 'public');
     }
+
+    $staff->update($data);
+
+    return redirect()
+        ->route('staff.index')
+        ->with('success', 'Staff updated successfully');
+}
+
+    public function toggleStatus(Staff $staff)
+{
+    $staff->status = $staff->status === 'active'
+        ? 'inactive'
+        : 'active';
+
+    $staff->save();
+
+    return redirect()->route('staff.index')
+        ->with('success', 'Staff status updated');
+}
+
 
     public function destroy(Staff $staff)
     {

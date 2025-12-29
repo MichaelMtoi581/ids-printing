@@ -44,3 +44,8 @@ Route::middleware(['auth'])->group(function () {
 }); 
 
 Route::resource('designations', DesignationController::class);
+
+Route::patch('/staff/{staff}/toggle-status', 
+    [StaffController::class, 'toggleStatus']
+)->name('staff.toggleStatus');
+
