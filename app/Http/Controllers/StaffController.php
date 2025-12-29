@@ -100,11 +100,12 @@ class StaffController extends Controller
 }
 
 
-    public function destroy(Staff $staff)
-    {
-        $staff->delete();
+   public function destroy(Staff $staff)
+{
+    $staff->delete(); // SOFT DELETE
 
-        return redirect()->route('staff.index')
-            ->with('success', 'Staff deleted successfully');
-    }
+    return redirect()->route('staff.index')
+        ->with('success', 'Staff archived successfully');
+}
+
 }
