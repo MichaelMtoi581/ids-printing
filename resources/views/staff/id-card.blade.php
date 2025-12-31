@@ -244,10 +244,20 @@
         }
         
         .qr-code {
-            width: 30px;
-            height: 30px;
+            width: 120px;
+            height: 120px;
             margin-bottom: 2px;
         }
+
+        .qr-code svg {
+            width: 120px !important;
+            height: 120px !important;
+        }
+
+        .qr-code svg path {
+             fill: #000 !important;
+        }
+
         
         .scan-text {
             font-size: 6.5px;
@@ -445,14 +455,17 @@
                             @php
                                 $qrData = "KMC Staff ID\nName: {$staff->full_name}\nFile No: {$staff->file_no}\nDept: " . ($staff->department->name ?? 'N/A') . "\nVerify: " . url('/staff/' . $staff->id);
                             @endphp
-                            @if(class_exists('SimpleSoftwareIO\QrCode\Facades\QrCode'))
-                                {!! QrCode::size(120)->generate($qrData) !!}
-                            @else
-                                <!-- Fallback text QR code -->
-                                <div style="width:30px;height:30px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:6px;color:#666;">
-                                    QR<br>CODE
-                                </div>
-                            @endif
+                         <div style="width:120px;height:120px;background:#fff;padding:5px;">
+ {!! QrCode::size(120)
+    ->color(0, 0, 0)
+    ->backgroundColor(255, 255, 255)
+    ->margin(1)
+    ->generate('TEST-QR-123456') !!}
+
+</div>
+
+
+
                         </div>
                         <div class="scan-text">Scan to verify</div>
                     </div>
