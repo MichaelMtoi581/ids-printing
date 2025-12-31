@@ -50,10 +50,16 @@ class DepartmentController extends Controller
     }
 
     public function destroy(Department $department)
-    {
-        $department->delete();
-
+{
+    if ($department->staff()->count() > 0) {
         return redirect()->route('departments.index')
-            ->with('success', 'Department deleted successfully');
+            ->with('error', 'Cannot delete department with assigned staff.');
     }
+
+    $department->delete();
+
+    return redirect()->route('departments.index')
+        ->with('success', 'Department deleted successfully');
+}
+
 }

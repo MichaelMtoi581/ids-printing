@@ -11,6 +11,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 
 
+
+
 class StaffController extends Controller
 {
    public function index()

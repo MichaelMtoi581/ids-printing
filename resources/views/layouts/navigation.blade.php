@@ -26,6 +26,9 @@
             :active="request()->routeIs('designations.*')">
     {{ __('Designations') }}
 </x-nav-link>
+<x-nav-link :href="route('verifications.index')">
+    Verifications
+</x-nav-link>
                 </div>
             </div>
 

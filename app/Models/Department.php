@@ -12,4 +12,13 @@ class Department extends Model
     protected $fillable = [
         'name','code'
     ];
+
+    public function staff()
+{
+    return $this->hasMany(\App\Models\Staff::class);
 }
+
+
+}
+
+

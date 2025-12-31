@@ -6,6 +6,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VerificationController;
 
 
 
@@ -53,3 +54,16 @@ Route::patch('/staff/{staff}/toggle-status',
 Route::get('/staff/{staff}/id-card', 
     [StaffController::class, 'idCard']
 )->name('staff.id-card');
+
+
+Route::get('/verify/staff/{staff}', 
+    [StaffController::class, 'verify']
+)->name('staff.verify');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/verifications', [VerificationController::class, 'index'])
+        ->name('verifications.index');
+});
+
+Route::get('/verify/{token}', [VerificationController::class, 'verify'])
+    ->name('verify.card');
