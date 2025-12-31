@@ -7,17 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Verification extends Model
 {
-    protected $fillable = [
-        'qr_token',
-        'card_number',
-        'staff_id',
-        'file_no',
-        'status',
-        'attempted_at',
-    ];
+    public function index()
+{
+    $verifications = Verification::with(['staff.department', 'staff.designation'])
+        ->orderByDesc('attempted_at')
+        ->paginate(10);
 
-    public function staff()
-    {
-        return $this->belongsTo(Staff::class);
-    }
+    return view('verifications.index', compact('verifications'));
+}
+
 }

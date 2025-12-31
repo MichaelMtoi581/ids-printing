@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <!-- <div>
+            <div>
                 <h2 class="font-bold text-2xl text-gray-800 flex items-center gap-3">
                     <div class="p-2 bg-indigo-50 rounded-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -11,7 +11,7 @@
                     Departments
                 </h2>
                 <p class="text-gray-500 text-sm mt-1">Manage your organization's departments and units</p>
-            </div> -->
+            </div>
             <div class="mt-4 sm:mt-0">
                 <a href="{{ route('departments.create') }}" 
                   <h2 class="font-bold text-2xl text-gray-800 flex items-center gap-3">
@@ -149,7 +149,7 @@
                                     <form action="{{ route('departments.destroy', $dept) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" onclick="return confirmDelete('{{ $dept->name }}')"
+                                        <button type="submit" onclick="return confirmDelete('{{ $dept->name }}')"
                                                 class="inline-flex items-center px-3 py-2 border border-red-300 text-red-700 rounded-lg hover:bg-red-50 hover:border-red-400 transition-colors duration-200">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

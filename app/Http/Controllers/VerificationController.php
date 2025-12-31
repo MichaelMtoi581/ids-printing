@@ -10,12 +10,26 @@ use App\Models\Verification;
 class VerificationController extends Controller
 {
     // ADMIN LIST (your screenshot)
-    public function index()
-    {
-        $verifications = Verification::latest('attempted_at')->paginate(10);
+ public function index()
+{
+    $verifications = Verification::with(['staff.department', 'staff.designation'])
+        ->orderByDesc('attempted_at')
+        ->paginate(10);
 
-        return view('verifications.index', compact('verifications'));
-    }
+    $total = Verification::count();
+    $valid = Verification::where('status', 'found')->count();
+    $invalid = Verification::where('status', 'not_found')->count();
+    $today = Verification::whereDate('attempted_at', today())->count();
+
+    return view('verifications.index', compact(
+        'verifications',
+        'total',
+        'valid',
+        'invalid',
+        'today'
+    ));
+}
+
 
     // PUBLIC QR VERIFY
     public function verify($token)

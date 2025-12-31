@@ -17,7 +17,9 @@ class StaffController extends Controller
 {
    public function index()
 {
-    $staff = Staff::with(['department', 'designation'])->get();
+     $staff = Staff::with(['department', 'designation'])
+                  ->paginate(10);   // ✅ pagination here
+
     return view('staff.index', compact('staff'));
 }
 
