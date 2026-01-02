@@ -450,25 +450,15 @@
                         <div class="signature-text">Issuer's Signature</div>
                     </div>
                     
-                    <div class="qr-section">
-                        <div class="qr-code">
-                            @php
-                                $qrData = "KMC Staff ID\nName: {$staff->full_name}\nFile No: {$staff->file_no}\nDept: " . ($staff->department->name ?? 'N/A') . "\nVerify: " . url('/staff/' . $staff->id);
-                            @endphp
-                         <div style="width:120px;height:120px;background:#fff;padding:5px;">
- {!! QrCode::size(120)
-    ->color(0, 0, 0)
-    ->backgroundColor(255, 255, 255)
-    ->margin(1)
-    ->generate('TEST-QR-123456') !!}
-
+                   <div class="qr-section">
+    <div style="width:120px;height:120px;">
+        {!! $qrSvg !!}
+    </div>
+    <div class="scan-text">Scan to verify</div>
 </div>
 
 
 
-                        </div>
-                        <div class="scan-text">Scan to verify</div>
-                    </div>
                 </div>
             </div>
         </div>

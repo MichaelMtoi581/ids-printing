@@ -8,7 +8,8 @@ use App\Models\Designation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Str;
 
 
 
@@ -116,12 +117,24 @@ class StaffController extends Controller
 
 public function idCard(Staff $staff)
 {
-    $pdf = Pdf::loadView('staff.id-card', compact('staff'))
-        ->setPaper([0, 0, 242.65, 153.07]); // ID card size (mm → points)
+    // Generate token if missing
+    if (!$staff->qr_token) {
+        $staff->qr_token = (string) Str::uuid();
+        $staff->save();
+    }
 
-    return $pdf->stream(
-        'ID_' . $staff->file_no . '.pdf'
-    );
+    // Verification URL
+    $verifyUrl = route('verify.card', $staff->qr_token);
+
+    // ✅ SVG QR (NO imagick needed)
+    $qrSvg = QrCode::format('svg')
+        ->size(120)
+        ->generate($verifyUrl);
+
+    $pdf = Pdf::loadView('staff.id-card', compact('staff', 'qrSvg'))
+        ->setPaper([0, 0, 242.65, 153.07]);
+
+    return $pdf->stream('ID_' . $staff->file_no . '.pdf');
 }
 
 

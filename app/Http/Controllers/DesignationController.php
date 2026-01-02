@@ -11,7 +11,8 @@ class DesignationController extends Controller
 {
     public function index()
     {
-        $designations = Designation::latest()->get();
+        // $designations = Designation::latest()->get();
+        $designations = Designation::withCount('staff')->orderBy('name')->get();
         return view('designations.index', compact('designations'));
     }
 

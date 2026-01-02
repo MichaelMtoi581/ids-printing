@@ -37,9 +37,12 @@ return new class extends Migration
 
         $table->string('photo_path')->nullable();
 
+
+
         $table->enum('status', ['active', 'inactive', 'retired'])
               ->default('active');
-
+        
+              
         $table->timestamps();
     });
 }
