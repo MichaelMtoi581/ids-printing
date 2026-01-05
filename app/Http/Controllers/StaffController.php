@@ -8,8 +8,10 @@ use App\Models\Designation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+// use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Str;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Writer\PngWriter;
 
 
 
@@ -33,18 +35,20 @@ class StaffController extends Controller
         return view('staff.create', compact('departments', 'designations'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'file_no' => 'required|unique:staff',
-            'full_name' => 'required',
-            'email' => 'required|email|unique:staff',
-            'department_id' => 'required',
-            'designation_id' => 'required',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+   public function store(Request $request)
+{
+    $request->validate([
+        'file_no' => 'required|unique:staff',
+        'full_name' => 'required',
+        'email' => 'required|email|unique:staff',
+        'department_id' => 'required',
+        'designation_id' => 'required',
+        'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
 
-       $data = $request->all();
+    $data = $request->all();
+
+    $data['qr_token'] = Str::uuid();
 
     if ($request->hasFile('photo')) {
         $data['photo_path'] =
@@ -55,7 +59,8 @@ class StaffController extends Controller
 
     return redirect()->route('staff.index')
         ->with('success', 'Staff added successfully');
-    }
+}
+
 
     public function edit(Staff $staff)
     {
@@ -117,25 +122,28 @@ class StaffController extends Controller
 
 public function idCard(Staff $staff)
 {
-    // Generate token if missing
-    if (!$staff->qr_token) {
-        $staff->qr_token = (string) Str::uuid();
-        $staff->save();
-    }
+    $verifyUrl = route('verify.card', ['token' => $staff->qr_token]);
 
-    // Verification URL
-    $verifyUrl = route('verify.card', $staff->qr_token);
+    $result = Builder::create()
+        ->writer(new PngWriter())
+        ->data($verifyUrl)
+        ->size(80)
+        ->margin(1)
+        ->build();
 
-    // ✅ SVG QR (NO imagick needed)
-    $qrSvg = QrCode::format('svg')
-        ->size(120)
-        ->generate($verifyUrl);
+    $qrBase64 = base64_encode($result->getString());
 
-    $pdf = Pdf::loadView('staff.id-card', compact('staff', 'qrSvg'))
-        ->setPaper([0, 0, 242.65, 153.07]);
+    return Pdf::loadView('staff.id-card', [
+            'staff' => $staff,
+            'qrBase64' => $qrBase64
+        ])
+        ->setPaper([0, 0, 242.65, 153.07])
+        ->stream('ID_' . $staff->file_no . '.pdf');
 
-    return $pdf->stream('ID_' . $staff->file_no . '.pdf');
+
+        
 }
+
 
 
 }

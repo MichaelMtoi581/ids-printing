@@ -238,21 +238,25 @@
             font-weight: 600;
             color: #333;
         }
-        
+
+
         .qr-section {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
             text-align: center;
         }
+
+        .scan-text {
+            font-size: 8px;
+            margin-top: 2px;
+        }
         
-        .qr-code {
+        /* .qr-code {
             width: 120px;
             height: 120px;
             margin-bottom: 2px;
-        }
-
-        .qr-code svg {
-            width: 120px !important;
-            height: 120px !important;
-        }
+        } */
 
         .qr-code svg path {
              fill: #000 !important;
@@ -450,12 +454,18 @@
                         <div class="signature-text">Issuer's Signature</div>
                     </div>
                     
-                   <div class="qr-section">
-    <div style="width:120px;height:120px;">
-        {!! $qrSvg !!}
-    </div>
+              <div class="qr-section">
+    <img 
+        src="data:image/png;base64,{{ $qrBase64 }}"
+        style="width:80px; height:80px;"
+        alt="QR Code"
+    >
     <div class="scan-text">Scan to verify</div>
 </div>
+
+
+
+
 
 
 
@@ -464,7 +474,7 @@
         </div>
     </div>
 
-    <script>
+    <!-- <script>
         // Auto print after short delay (optional)
         setTimeout(() => {
             window.print();
@@ -476,6 +486,6 @@
                 window.close();
             }
         };
-    </script>
+    </script> -->
 </body>
 </html>

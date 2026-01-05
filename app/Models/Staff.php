@@ -21,6 +21,7 @@ class Staff extends Model
         'residential_address',
         'photo_path',
         'status',
+        'qr_token',
     ];
 
     public function department()
