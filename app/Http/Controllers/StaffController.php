@@ -122,6 +122,10 @@ class StaffController extends Controller
 
 public function idCard(Staff $staff)
 {
+    // 🔴 FIX: Reload staff WITH relationships
+    $staff = Staff::with(['department', 'designation'])
+                  ->findOrFail($staff->id);
+
     $verifyUrl = route('verify.card', ['token' => $staff->qr_token]);
 
     $result = Builder::create()
@@ -139,10 +143,8 @@ public function idCard(Staff $staff)
         ])
         ->setPaper([0, 0, 242.65, 153.07])
         ->stream('ID_' . $staff->file_no . '.pdf');
-
-
-        
 }
+
 
 
 

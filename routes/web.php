@@ -51,9 +51,9 @@ Route::patch('/staff/{staff}/toggle-status',
     [StaffController::class, 'toggleStatus']
 )->name('staff.toggleStatus');
 
-Route::get('/staff/{staff}/id-card', 
-    [StaffController::class, 'idCard']
-)->name('staff.id-card');
+Route::get('/staff/{staff}/id-card', [StaffController::class, 'idCard'])
+     ->name('staff.id-card');
+
 
 
 Route::get('/verify/staff/{staff}', 
