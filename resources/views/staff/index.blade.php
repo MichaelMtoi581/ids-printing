@@ -20,12 +20,25 @@
                     </svg>
                     Add New Staff
                 </a>
-                <button class="inline-flex items-center px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-black-500 font-medium rounded-lg hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md hover:shadow-lg transition-all duration-200">
+                <button  onclick="document.getElementById('staffImportInput').click()" class="inline-flex items-center px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-black-500 font-medium rounded-lg hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md hover:shadow-lg transition-all duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                     </svg>
-                    Export
+                    Import
                 </button>
+                <form id="staffImportForm"
+      action="{{ route('staff.import') }}"
+      method="POST"
+      enctype="multipart/form-data"
+      class="hidden">
+    @csrf
+    <input type="file"
+           id="staffImportInput"
+           name="file"
+           accept=".xls,.xlsx"
+           onchange="document.getElementById('staffImportForm').submit();">
+</form>
+
             </div>
         </div>
     </x-slot>
@@ -183,17 +196,38 @@
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-12 w-12 rounded-lg overflow-hidden bg-gray-200">
+                                    <div class="flex-shrink-0">
                                         @if($s->photo_path)
-                                            <img src="{{ asset('storage/'.$s->photo_path) }}" 
-                                                 alt="{{ $s->full_name }}"
-                                                 class="h-12 w-12 object-cover">
+                                              <button onclick="openPhotoModal('{{ asset('storage/'.$s->photo_path) }}', '{{ $s->full_name }}')"
+                                                   class="text-blue-600 hover:text-blue-800 text-sm font-medium underline">
+                                                    View Photo
+                                              </button>
                                         @else
-                                            <div class="h-12 w-12 bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
-                                                <span class="text-blue-600 font-bold">{{ substr($s->full_name, 0, 2) }}</span>
-                                            </div>
+                                        <span class="text-gray-400 text-sm italic">No photo</span>
                                         @endif
                                     </div>
+                                    <!-- Photo Preview Modal -->
+                                    <div id="photoModal"
+                                        class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50">
+                                        <div class="bg-white rounded-xl shadow-xl  max-w-md max-h-[80vh] p-4 relative overflow-hidden">
+                                            
+                                            <button onclick="closePhotoModal()"
+                                                    class="absolute top-2 right-2 text-gray-500 hover:text-red-600">
+                                                ✕
+                                            </button>
+
+                                            <h3 id="photoModalName"
+                                                class="text-sm font-semibold text-gray-700 mb-3 text-center"></h3>
+
+                                            <img id="photoModalImg"
+                                                src=""
+                                                alt="Staff Photo"
+                                                class="max-w-full max-h-[60vh] mx-auto rounded-lg object-contain border">
+
+                                        </div>
+                                    </div>
+
+
                                     <div class="ml-4">
                                         <div class="text-sm font-semibold text-gray-900">{{ $s->full_name }}</div>
                                         <div class="text-sm text-gray-500">{{ $s->email }}</div>
@@ -263,6 +297,23 @@
 
     @push('scripts')
     <script>
+        function openPhotoModal(imageUrl, name) {
+            document.getElementById('photoModalImg').src = imageUrl;
+            document.getElementById('photoModalName').textContent = name;
+            document.getElementById('photoModal').classList.remove('hidden');
+            document.getElementById('photoModal').classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+        }
+
+
+        function closePhotoModal() {
+            document.getElementById('photoModal').classList.add('hidden');
+            document.getElementById('photoModal').classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+
+
         function confirmDelete(staffName, fileNo, button) {
             if (confirm(`Are you sure you want to delete "${staffName}" (File No: ${fileNo})?\n\n⚠️ This action cannot be undone.`)) {
                 button.closest('form').submit();

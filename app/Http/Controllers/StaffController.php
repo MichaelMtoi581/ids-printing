@@ -8,10 +8,13 @@ use App\Models\Designation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
-// use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Str;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Writer\PngWriter;
+use App\Imports\StaffImport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 
 
 
@@ -21,7 +24,7 @@ class StaffController extends Controller
    public function index()
 {
      $staff = Staff::with(['department', 'designation'])
-                  ->paginate(10);   // ✅ pagination here
+                  ->paginate(10);  
 
     return view('staff.index', compact('staff'));
 }
@@ -143,6 +146,19 @@ public function idCard(Staff $staff)
         ])
         ->setPaper([0, 0, 242.65, 153.07])
         ->stream('ID_' . $staff->file_no . '.pdf');
+}
+
+public function import(Request $request)
+{
+    $request->validate([
+        'file' => 'required|mimes:xlsx,xls'
+    ]);
+
+    Excel::import(new StaffImport, $request->file('file'));
+
+    return redirect()
+        ->route('staff.index')
+        ->with('success', 'Staff imported successfully.');
 }
 
 

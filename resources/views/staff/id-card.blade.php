@@ -10,16 +10,21 @@
     margin: 0;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: white;
+* {
+    box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff;
+}
+
+/* ================= CARD ================= */
 .card {
     width: 85.6mm;
     height: 54mm;
+    position: relative;
     overflow: hidden;
 }
 
@@ -52,7 +57,7 @@ body {
 }
 
 .header-text {
-    color: white;
+    color: #fff;
 }
 
 .council-name {
@@ -67,7 +72,7 @@ body {
     text-transform: uppercase;
 }
 
-/* ================= FRONT CONTENT ================= */
+/* ================= FRONT ================= */
 .front-content {
     padding: 3mm;
 }
@@ -78,9 +83,8 @@ body {
 }
 
 .details-cell {
-    width: 55mm;
+    width: 78%;
     vertical-align: top;
-    padding-right: 3mm;
 }
 
 .staff-name {
@@ -93,7 +97,7 @@ body {
 
 .detail {
     font-size: 7px;
-    margin-bottom: 1.5mm;
+    margin-bottom: 1.4mm;
 }
 
 .label {
@@ -102,10 +106,11 @@ body {
     width: 22mm;
 }
 
+/* PHOTO */
 .photo-cell {
-    width: 26mm;
-    vertical-align: top;
+    width: 22%;
     text-align: right;
+    vertical-align: top;
 }
 
 .photo-box {
@@ -120,6 +125,7 @@ body {
     object-fit: cover;
 }
 
+/* CARD NUMBER */
 .card-number {
     position: absolute;
     bottom: 2mm;
@@ -138,7 +144,7 @@ body {
 
 .back-header {
     background: #1a5bb8;
-    color: white;
+    color: #fff;
     text-align: center;
     padding: 2mm;
     font-size: 7.5px;
@@ -152,7 +158,7 @@ body {
     line-height: 1.4;
 }
 
-/* Signature + QR row */
+/* FOOTER */
 .back-footer {
     position: absolute;
     bottom: 3mm;
@@ -172,10 +178,9 @@ body {
 }
 
 .signature-text {
-    font-size: 10px;
+    font-size: 7px;
     font-weight: normal;
 }
-
 
 .qr img {
     width: 22mm;
@@ -215,7 +220,7 @@ body {
     <div class="front-content">
         <table class="content-table">
             <tr>
-                <td class="details-cell" style="width: 80%;">
+                <td class="details-cell">
                     <div class="staff-name">{{ $staff->full_name }}</div>
 
                     <div class="detail"><span class="label">File No:</span>{{ $staff->file_no }}</div>
@@ -224,8 +229,8 @@ body {
                     <div class="detail"><span class="label">Valid Until:</span>Dec, 2028</div>
                 </td>
 
-                <td class="photo-cell" style="width: 20%;">
-                    <div class="photo-box" style="height: 75px;">
+                <td class="photo-cell">
+                    <div class="photo-box">
                         @if($staff->photo_path)
                             <img src="{{ public_path('storage/'.$staff->photo_path) }}">
                         @endif
@@ -252,14 +257,12 @@ body {
         If found, please return to the council offices.
     </div>
 
-    <!-- SIGNATURE LEFT, QR RIGHT -->
     <div class="back-footer">
         <table>
             <tr>
                 <td>
                     <div class="signature-line"></div>
                     <div class="signature-text">Issuer's Signature</div>
-
                 </td>
 
                 <td style="text-align:right;" class="qr">

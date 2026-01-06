@@ -67,3 +67,11 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/verify/{token}', [VerificationController::class, 'verify'])
     ->name('verify.card');
+
+
+Route::post('/staff/import', [StaffController::class, 'import'])
+    ->name('staff.import');
+
+// Route::post('/staff/id-cards/batch', [StaffController::class, 'batchIdCards'])
+//     ->name('staff.idcards.batch');
+
