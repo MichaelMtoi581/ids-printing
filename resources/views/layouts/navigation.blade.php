@@ -4,31 +4,37 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                <div class="shrink-0 flex items-center " style="font-weight: bolder; font-size: larger;">
+                   <span style="width: 13mm;">
+                        <a href="{{ route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
+                   </span> 
+                    <h1 style="margin-top: 20px;">KMC-ID</h1>
                 </div>
+                
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('staff.index')" :active="request()->routeIs('staff.*')">
+                          {{ __('Staff') }}
+                    </x-nav-link>
+
                     <x-nav-link :href="route('departments.index')" 
-                :active="request()->routeIs('departments.*')">
-        {{ __('Departments') }}
-    </x-nav-link>
-                      <x-nav-link :href="route('staff.index')" :active="request()->routeIs('staff.*')">
-    {{ __('Staff') }}
-</x-nav-link>
-<x-nav-link :href="route('designations.index')"
-            :active="request()->routeIs('designations.*')">
-    {{ __('Designations') }}
-</x-nav-link>
-<x-nav-link :href="route('verifications.index')">
-    Verifications
-</x-nav-link>
+                        :active="request()->routeIs('departments.*')">
+                        {{ __('Departments') }}
+                    </x-nav-link>
+                    
+                    <x-nav-link :href="route('designations.index')"
+                         :active="request()->routeIs('designations.*')">
+                        {{ __('Designations') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('verifications.index')">
+                    Verifications
+                    </x-nav-link>
                 </div>
             </div>
 

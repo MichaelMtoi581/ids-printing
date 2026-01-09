@@ -26,6 +26,7 @@
             
             .btn-kmc:hover {
                 background-color: #1d4ed8;
+                color: white;
             }
             
             .btn-kmc-outline {
@@ -119,7 +120,7 @@
                             </a>
                         @else
                             <a href="{{ route('login') }}" class="btn-kmc text-center">
-                                Staff Login
+                              Login
                             </a>
                             <button onclick="scrollToVerify()" class="btn-kmc-outline text-center">
                                 Verify Card
