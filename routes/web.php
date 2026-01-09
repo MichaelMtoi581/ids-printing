@@ -72,6 +72,5 @@ Route::get('/verify/{token}', [VerificationController::class, 'verify'])
 Route::post('/staff/import', [StaffController::class, 'import'])
     ->name('staff.import');
 
-// Route::post('/staff/id-cards/batch', [StaffController::class, 'batchIdCards'])
-//     ->name('staff.idcards.batch');
+
 

@@ -129,6 +129,8 @@ public function idCard(Staff $staff)
     $staff = Staff::with(['department', 'designation'])
                   ->findOrFail($staff->id);
 
+     $staff->increment('id_card_prints');
+
     $verifyUrl = route('verify.card', ['token' => $staff->qr_token]);
 
     $result = Builder::create()

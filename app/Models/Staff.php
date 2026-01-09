@@ -22,6 +22,7 @@ class Staff extends Model
         'photo_path',
         'status',
         'qr_token',
+        'id_card_prints',
     ];
 
     public function department()

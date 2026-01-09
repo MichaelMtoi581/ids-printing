@@ -115,7 +115,9 @@
                     </div>
                     <div class="ml-4">
                         <p class="text-sm text-gray-500">ID Cards Printed</p>
-                        <p class="text-2xl font-bold text-gray-800">--</p>
+                        <p class="text-2xl font-bold text-gray-800">
+                            {{ $staff->sum('id_card_prints') }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -234,6 +236,9 @@
                                     <div class="ml-4">
                                         <div class="text-sm font-semibold text-gray-900">{{ $s->full_name }}</div>
                                         <div class="text-sm text-gray-500">{{ $s->email }}</div>
+                                        <div class="text-xs text-gray-400 mt-1">
+                                            ID printed {{ $s->id_card_prints }} times
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -267,8 +272,9 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                                         </svg>
-                                        ID Card
+                                        ID Card 
                                     </a>
+                                    
                                     <form action="{{ route('staff.destroy', $s->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
