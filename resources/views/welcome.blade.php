@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>KMC ID Card System</title>
+        <title>KMC-ID CARD SYSTEM</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -191,9 +191,6 @@
                 <div class="text-center mt-12 pt-6 border-t border-gray-200 dark:border-gray-700">
                     <p class="text-gray-500 dark:text-gray-400 text-sm">
                         © 2024 KMC ID Card System. All rights reserved.
-                    </p>
-                    <p class="text-gray-400 dark:text-gray-500 text-xs mt-2">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                     </p>
                 </div>
             </div>

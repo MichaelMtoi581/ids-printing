@@ -1,3 +1,6 @@
+<html>
+    <title>KMC-ID CARD SYSTEM</title>
+</html>
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between">
@@ -180,7 +183,7 @@
                             </div>
                         </a>
 
-                        <a href="#" class="group">
+                        <a href="{{ route('staff.create') }}" class="group">
                             <div class="bg-white border border-gray-200 rounded-xl p-5 hover:border-emerald-300 hover:shadow-md transition-all duration-300 group-hover:-translate-y-1">
                                 <div class="flex items-center gap-4">
                                     <div class="p-3 bg-emerald-50 rounded-lg group-hover:bg-emerald-100 transition-colors">
@@ -196,7 +199,7 @@
                             </div>
                         </a>
 
-                        <a href="#" class="group">
+                        <a href="{{ route('departments.index') }}" class="group">
                             <div class="bg-white border border-gray-200 rounded-xl p-5 hover:border-purple-300 hover:shadow-md transition-all duration-300 group-hover:-translate-y-1">
                                 <div class="flex items-center gap-4">
                                     <div class="p-3 bg-purple-50 rounded-lg group-hover:bg-purple-100 transition-colors">

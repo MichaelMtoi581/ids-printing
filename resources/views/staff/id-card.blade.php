@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>KMC Staff ID Card</title>
+<title>Staff Card</title>
 
 <style>
 @page {
@@ -93,10 +93,11 @@ body {
 .detail {
     font-size: 9px;
     margin-bottom: 1.4mm;
+    height: 8px;
 }
 
 .label {
-    font-weight: bold;
+    font-weight:bolder;
     display: inline-block;
     width: 16mm;
     font-size: 9px;
@@ -128,7 +129,7 @@ body {
     left: 3mm;
     right: 3mm;
     font-size: 9px;
-    font-weight: bold;
+    font-weight: bolder;
     color: #111;
     text-align: center;
 }
@@ -153,14 +154,15 @@ body {
     padding: 3mm;
     font-size: 9px;
     line-height: 1.4;
+    
 }
 
 /* FOOTER */
 .back-footer {
     position: absolute;
     bottom: 3mm;
-    left: 3mm;
-    right: 3mm;
+    left: 1mm;
+    right: 4mm;
 }
 
 .back-footer table {
