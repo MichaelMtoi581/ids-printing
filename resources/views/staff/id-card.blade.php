@@ -26,18 +26,18 @@ body {
     height: 54mm;
     position: relative;
     overflow: hidden;
+    background-image: url("{{ public_path('images/security-bg.png') }}");
+    background-size: cover;
 }
 
+
+
 /* ================= HEADER ================= */
-.header {
-    background: #1a5bb8;
-    border-bottom: 2mm solid #f8c102;
-    padding: 2mm;
-}
 
 .header-table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 1px;
 }
 
 .header-table td {
@@ -64,12 +64,15 @@ body {
     font-size: 7.5px;
     font-weight: bold;
     text-transform: uppercase;
+    color: #000;
 }
 
 .card-type {
     font-size: 8px;
     font-weight: bold;
     text-transform: uppercase;
+    color: #000;
+    text-align: left;
 }
 
 /* ================= FRONT ================= */
@@ -87,23 +90,16 @@ body {
     vertical-align: top;
 }
 
-.staff-name {
-    font-size: 9px;
-    font-weight: bold;
-    color: #1a5bb8;
-    margin-bottom: 2mm;
-    text-transform: uppercase;
-}
-
 .detail {
-    font-size: 7px;
+    font-size: 9px;
     margin-bottom: 1.4mm;
 }
 
 .label {
     font-weight: bold;
     display: inline-block;
-    width: 22mm;
+    width: 16mm;
+    font-size: 9px;
 }
 
 /* PHOTO */
@@ -115,8 +111,8 @@ body {
 
 .photo-box {
     width: 24mm;
-    height: 28mm;
-    border: 0.5mm solid #ccc;
+    height: 22mm;
+    border: 0.5mm solid #555;
 }
 
 .photo-box img {
@@ -131,15 +127,16 @@ body {
     bottom: 2mm;
     left: 3mm;
     right: 3mm;
-    font-size: 7px;
+    font-size: 9px;
     font-weight: bold;
-    color: #333;
+    color: #111;
+    text-align: center;
 }
 
 /* ================= BACK ================= */
 .back {
     page-break-before: always;
-    border: 0.5mm solid #ddd;
+    border: 0.5mm solid #999;
 }
 
 .back-header {
@@ -154,7 +151,7 @@ body {
 
 .back-content {
     padding: 3mm;
-    font-size: 7px;
+    font-size: 9px;
     line-height: 1.4;
 }
 
@@ -169,17 +166,22 @@ body {
 .back-footer table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
 .signature-line {
     width: 25mm;
-    border-top: 0.5mm solid #000;
-    margin-bottom: 1mm;
+    border-top: 0.6mm solid #000;
+    margin-top: 10mm;
+    margin-left: 105px;
+    
 }
 
 .signature-text {
-    font-size: 7px;
-    font-weight: normal;
+    font-size: 9px;
+    text-align: center;
+    margin-left: 70px;
+    font-weight: bold;
 }
 
 .qr img {
@@ -194,6 +196,9 @@ body {
 <!-- ================= FRONT ================= -->
 <div class="card front">
 
+    <div class="security-bg"></div>
+    <div class="watermark"></div>
+
     <div class="header">
         <table class="header-table">
             <tr>
@@ -204,7 +209,11 @@ body {
                 </td>
 
                 <td style="width:70%;" class="header-text">
-                    <div class="council-name">KINONDONI MUNICIPAL COUNCIL</div>
+                    <div class="council-name">
+                    <h3>THE UNITED REPUBLIC OF TANZANIA<br>
+                    PRESIDENT'S OFFICE,REGIONAL ADMINISTRATION<br>
+                    AND LOCAL GOVERNMENT<br>    
+                    KINONDONI MUNICIPAL COUNCIL</h3></div>
                     <div class="card-type">STAFF IDENTITY CARD</div>
                 </td>
 
@@ -221,9 +230,8 @@ body {
         <table class="content-table">
             <tr>
                 <td class="details-cell">
-                    <div class="staff-name">{{ $staff->full_name }}</div>
-
-                    <div class="detail"><span class="label">File No:</span>{{ $staff->file_no }}</div>
+                    <div class="detail"><span class="label">Name:</span>{{ $staff->full_name }}</div>
+                    <div class="detail"><span class="label">Check No:</span>{{ $staff->file_no }}</div>
                     <div class="detail"><span class="label">Designation:</span>{{ $staff->designation?->name }}</div>
                     <div class="detail"><span class="label">Department:</span>{{ $staff->department?->name }}</div>
                     <div class="detail"><span class="label">Valid Until:</span>Dec, 2028</div>
@@ -248,25 +256,36 @@ body {
 <!-- ================= BACK ================= -->
 <div class="card back">
 
-    <div class="back-header">
-        KINONDONI MUNICIPAL COUNCIL
-    </div>
-
-    <div class="back-content">
-        This card remains the property of Kinondoni Municipal Council.<br>
-        If found, please return to the council offices.
-    </div>
+    <div class="security-bg"></div>
 
     <div class="back-footer">
         <table>
             <tr>
+                <td style="width: 60%;">
+                    <div class="back-content">
+                        If found kindly return to:<br>
+                        Director - Kinondoni MC,<br>
+                        P.O. Box 31902,<br>
+                        2Morogoro Road,<br>
+                        Dar es Salaam.<br>
+                        Phone: 0222170173<br>
+                        Email: md@kinondonimc.go.tz
+
+                     </div>
+
+                </td>
+                <td style="text-align:right; width: 40%;" class="qr">
+                    <img src="data:image/png;base64,{{ $qrBase64 }}">
+                </td>
+            </tr>
+            <tr>
                 <td>
-                    <div class="signature-line"></div>
                     <div class="signature-text">Issuer's Signature</div>
                 </td>
-
-                <td style="text-align:right;" class="qr">
-                    <img src="data:image/png;base64,{{ $qrBase64 }}">
+            </tr>
+            <tr>
+                <td>
+                    <div class="signature-line"></div>
                 </td>
             </tr>
         </table>
@@ -275,3 +294,5 @@ body {
 
 </body>
 </html>
+
+
