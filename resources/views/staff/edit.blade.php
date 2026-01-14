@@ -59,7 +59,7 @@
                             
                             <div>
                                 <label for="file_no" class="block text-sm font-medium text-gray-700 mb-2">
-                                    File Number *
+                                    Check Number *
                                 </label>
                                 <input type="text" 
                                        name="file_no" 
