@@ -34,5 +34,25 @@ class Staff extends Model
     {
         return $this->belongsTo(Designation::class);
     }
+
+    public function generateCardNumber(): string
+{
+    $departmentCode = $this->department
+        ? strtoupper(collect(explode(' ', preg_replace('/[^A-Za-z ]/', '', $this->department->name)))
+            ->map(fn ($w) => substr($w, 0, 1))
+            ->implode(''))
+        : 'GEN';
+
+    $designationCode = $this->designation
+        ? strtoupper(collect(explode(' ', preg_replace('/[^A-Za-z ]/', '', $this->designation->name)))
+            ->map(fn ($w) => substr($w, 0, 1))
+            ->implode(''))
+        : 'GEN';
+
+    $serial = str_pad($this->id, 6, '0', STR_PAD_LEFT);
+
+    return "KMC-{$departmentCode}-{$designationCode}-{$serial}";
+}
+
 }
 

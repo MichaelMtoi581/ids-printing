@@ -1,5 +1,5 @@
 <html>
-    <title>KMC-ID CARD SYSTEM</title>
+    <title>KMC-ID CARD</title>
 </html>
 <x-app-layout>
     <x-slot name="header">

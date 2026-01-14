@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>KMC-ID CARD SYSTEM</title>
+        <title>KMC-ID CARD</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -26,7 +26,6 @@
             
             .btn-kmc:hover {
                 background-color: #1d4ed8;
-                color: white;
             }
             
             .btn-kmc-outline {

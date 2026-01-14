@@ -1,5 +1,5 @@
 <html>
-    <title>KMC-ID CARD SYSTEM</title>
+    <title>KMC-ID CARD</title>
 </html>
 <x-app-layout>
     <x-slot name="header">
@@ -35,7 +35,9 @@
                 <h3 class="text-gray-500 text-sm font-medium mb-2">Total Staff</h3>
                 <p class="text-3xl font-bold text-gray-800 mb-1">{{ $totalStaff }}</p>
                 <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-                    <div class="h-full bg-blue-500 rounded-full" style="width: {{ ($activeStaff/$totalStaff)*100 }}%"></div>
+                    <div
+                     class="h-full bg-blue-500 rounded-full" style="width: {{ $totalStaff > 0 ? ($activeStaff / $totalStaff) * 100 : 0 }}%">
+                    </div>
                 </div>
             </div>
 

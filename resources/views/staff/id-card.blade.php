@@ -46,13 +46,13 @@ body {
 }
 
 .logo {
-    width: 11mm;
-    height: 11mm;
+    width: 16mm;
+    height: 16mm;
 }
 
 .logo img {
-    width: 100%;
-    height: 100%;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
 }
 
@@ -67,22 +67,24 @@ body {
     color: #000;
 }
 
+
 .card-type {
-    font-size: 8px;
+    font-size: 9px;
     font-weight: bold;
     text-transform: uppercase;
-    color: #000;
+    color: blue;
     text-align: left;
 }
 
 /* ================= FRONT ================= */
 .front-content {
-    padding: 3mm;
+    padding: 1mm;
 }
 
 .content-table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 7px;
 }
 
 .details-cell {
@@ -92,8 +94,8 @@ body {
 
 .detail {
     font-size: 9px;
-    margin-bottom: 1.4mm;
-    height: 8px;
+    margin-bottom: 2mm;
+    height: 5px;
 }
 
 .label {
@@ -111,8 +113,8 @@ body {
 }
 
 .photo-box {
-    width: 24mm;
-    height: 22mm;
+    width: 22mm;
+    height: 19mm;
     border: 0.5mm solid #555;
 }
 
@@ -172,11 +174,14 @@ body {
 }
 
 .signature-line {
-    width: 25mm;
-    border-top: 0.6mm solid #000;
-    margin-top: 10mm;
-    margin-left: 105px;
-    
+    width: 16mm;
+    height: 10mm;  
+}
+.signature-line img{
+    width: 60px;
+    height: 40px;
+    object-fit: contain;
+    margin-left: 100px;
 }
 
 .signature-text {
@@ -204,24 +209,24 @@ body {
     <div class="header">
         <table class="header-table">
             <tr>
-                <td style="width:15%;">
+                <td style="width:20%;">
                     <div class="logo">
                         <img src="{{ public_path('images/COA1.png') }}">
                     </div>
                 </td>
 
-                <td style="width:70%;" class="header-text">
+                <td style="width:60%;" class="header-text">
                     <div class="council-name">
                     <h3>THE UNITED REPUBLIC OF TANZANIA<br>
-                    PRESIDENT'S OFFICE,REGIONAL ADMINISTRATION<br>
+                    PRIME'S OFFICE,REGIONAL ADMINISTRATION<br>
                     AND LOCAL GOVERNMENT<br>    
                     KINONDONI MUNICIPAL COUNCIL</h3></div>
                     <div class="card-type">STAFF IDENTITY CARD</div>
                 </td>
 
-                <td style="width:15%;">
+                <td style="width:20%;">
                     <div class="logo">
-                        <img src="{{ public_path('images/KMC.png') }}">
+                        <img src="{{ public_path('images/kmc3.png') }}">
                     </div>
                 </td>
             </tr>
@@ -251,7 +256,7 @@ body {
     </div>
 
     <div class="card-number">
-        Card No: KMC{{ str_pad($staff->id, 8, '0', STR_PAD_LEFT) }}
+        Card No: {{ $staff->generateCardNumber() }}
     </div>
 </div>
 
@@ -287,7 +292,9 @@ body {
             </tr>
             <tr>
                 <td>
-                    <div class="signature-line"></div>
+                    <div class="signature-line">
+                        <img src="{{ public_path('images/signture.png') }}">
+                    </div>
                 </td>
             </tr>
         </table>

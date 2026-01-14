@@ -1,3 +1,6 @@
+<html>
+    <title>KMC-ID CARD</title>
+</html>
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
