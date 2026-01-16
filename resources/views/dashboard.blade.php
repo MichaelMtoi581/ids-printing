@@ -58,7 +58,8 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                         </svg>
-                        {{ number_format(($activeStaff/$totalStaff)*100, 1) }}% of total
+                        {{ $totalStaff > 0 ? number_format(($activeStaff / $totalStaff) * 100, 1) : 0 }}
+of total
                     </span>
                 </p>
             </div>
@@ -80,7 +81,8 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
                         </svg>
-                        {{ number_format(($inactiveStaff/$totalStaff)*100, 1) }}% of total
+                        {{ $totalStaff > 0 ? number_format(($inactiveStaff / $totalStaff) * 100, 1) : 0 }}%
+% of total
                     </span>
                 </p>
             </div>
@@ -143,7 +145,8 @@
                 <div class="space-y-3">
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-gray-600">Active Rate</span>
-                        <span class="font-semibold text-blue-600">{{ number_format(($activeStaff/$totalStaff)*100, 1) }}%</span>
+                        <span class="font-semibold text-blue-600">{{ $totalStaff > 0 ? number_format(($activeStaff / $totalStaff) * 100, 1) : 0 }}%
+</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-gray-600">Department Avg.</span>

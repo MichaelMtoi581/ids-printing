@@ -6,23 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('staff', function (Blueprint $table) {
-             $table->string('qr_token')->unique()->nullable();
+        Schema::table('staff', function (Blueprint $table) {
+            $table->uuid('qr_token')->unique()->nullable()->after('photo_path');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('staff', function (Blueprint $table) {
-            //
+            $table->dropColumn('qr_token');
         });
     }
 };

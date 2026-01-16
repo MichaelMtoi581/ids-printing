@@ -42,9 +42,9 @@
         <!-- Header -->
         <div class="text-center mb-12">
             <div class="inline-block p-4 bg-white rounded-2xl shadow-lg mb-6">
-                <img src="https://via.placeholder.com/60x60/0a3d62/ffffff?text=KMC" 
-                     alt="KMC Logo" 
-                     class="h-16 w-16 mx-auto rounded-lg">
+                <a href="{{ route('dashboard') }}">
+                        <x-application-logo class="block h-12 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    </a>
             </div>
             <h1 class="text-4xl font-bold text-gray-800 mb-2">
                 Kinondoni Municipal Council
